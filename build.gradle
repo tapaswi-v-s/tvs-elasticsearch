@@ -54,10 +54,17 @@ plugins {
   id 'elasticsearch.release-tools'
   id 'elasticsearch.versions'
   id 'com.gradleup.nmcp.aggregation'
+  id "org.sonarqube" version "7.0.1.6134"
 }
 
 version = VersionProperties.elasticsearch
 
+sonar {
+  properties {
+    property "sonar.projectKey", "tapaswi-v-s_tvs-elasticsearch"
+    property "sonar.organization", "tapaswi-v-s"
+  }
+}
 /**
  * Here we package and aggregation zip file containing all maven artifacts we want to
  * publish to maven central.
@@ -590,15 +597,4 @@ tasks.register("spotlessApply").configure {
   dependsOn gradle.includedBuild('build-tools').task(':spotlessApply')
   dependsOn gradle.includedBuild('build-tools').task(':reaper:spotlessApply')
   dependsOn gradle.includedBuild('build-tools-internal').task(':spotlessApply')
-}
-
-plugins {
-  id "org.sonarqube" version "7.0.1.6134"
-}
-
-sonar {
-  properties {
-    property "sonar.projectKey", "tapaswi-v-s_tvs-elasticsearch"
-    property "sonar.organization", "tapaswi-v-s"
-  }
 }
